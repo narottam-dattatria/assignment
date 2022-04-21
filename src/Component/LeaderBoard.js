@@ -1,18 +1,20 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { response } from '../response';
 
-const index = 0;
+// const index = 0;
 
 function LeaderBoard(props) {
-	const { rank, name, points, age} = response.list[index];
+	const history = useNavigate();
 	return (
+		
 		<div className="text-center mt-50">
 			<div>
 				<div>
-					<button data-testid="route-rank" className='outlined' type="button">Rank</button>
-					<button data-testid="route-name" className='outlined' type="button">Name</button>
-					<button data-testid="route-points" className='outlined' type="button">Points</button>
-					<button data-testid="route-age" className='outlined' type="button">Age</button>
+					<button data-testid="route-rank" className='outlined' type="button" onClick={() => history(`/rank`)}>Rank</button>
+					<button data-testid="route-name" className='outlined' type="button"  onClick={() => history(`/name`)}>Name</button>
+					<button data-testid="route-points" className='outlined' type="button" onClick={() => history(`/points`)}>Points</button>
+					<button data-testid="route-age" className='outlined' type="button" onClick={() => history(`/age`)}>Age</button>
 				</div>
 			</div>
 			<div className="card mx-auto pb-20 mb-30" style={{ width: '50%' }}>
@@ -26,12 +28,13 @@ function LeaderBoard(props) {
 						</tr>
 					</thead>
 					<tbody data-testid="app-tbody">
-						<tr key={rank}>
+						{response.list.map(({rank, name, points, age}, index) => <tr key={rank}>
 							<td data-testid={`rank-${index}`}>{rank}</td>
 							<td data-testid={`name-${index}`}>{name}</td>
 							<td data-testid={`points-${index}`} className="numeric">{points}</td>
 							<td data-testid={`age-${index}`} className="numeric">{age}</td>
-						</tr>
+						</tr>)}
+					
 					</tbody>
 				</table>
 			</div>
